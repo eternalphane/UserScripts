@@ -17,6 +17,19 @@
     $("div#js-stats-and-actions > div:nth-child(3)").after(GM_getResourceText("html"));
     var chestId = null,
         yuwanId = null;
+    function getyw() {
+        var time = $("span.getyw-time").text(),
+            second = 1;
+        if (time == "领取" && !$("div.vcode9:visible").length) {
+            $("a.may-btn").click();
+        } else if (time == "完成") {
+            return;
+        } else if (time != "") {
+            time = time.split(":");
+            second = parseInt(time[0]) * 60 + parseInt(time[1]);
+        }
+        yuwanId = setTimeout(getyw, second);
+    }
     $("input#chest-switch").change(function() {
         if (this.checked) {
             chestId = setInterval(function() {
@@ -31,15 +44,9 @@
     });
     $("input#yuwan-switch").change(function() {
         if (this.checked) {
-            $("ul.cb-list span.may-get + a").click();
-            yuwanId = setInterval(function() {
-                var yw = $("ul.cb-list span.may-get + a");
-                if (yw.length && !$("div.vcode9:visible").length) {
-                    yw.click();
-                }
-            }, 60000);
+            getyw();
         } else {
-            clearInterval(yuwanId);
+            clearTimeout(yuwanId);
         }
     });
 })();
