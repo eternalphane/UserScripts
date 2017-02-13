@@ -33,9 +33,9 @@
     $("input#chest-switch").change(function() {
         if (this.checked) {
             chestId = setInterval(function() {
-                var peck = $("div.peck");
-                if (peck.css("style") == "block" && peck.hasClass("peck-open")) {
-                    $("div.peck-cdn").click();
+                var peck = $("div.peck-cdn");
+                if (peck.text() == "领取") {
+                    peck.click();
                 }
             }, 500);
         } else {
