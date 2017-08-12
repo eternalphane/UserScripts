@@ -4,12 +4,12 @@
 // @version      0.1
 // @description  屏蔽某个智障用户Ciro Santilli
 // @author       EternalPhane
-// @include      /^https?:\/\/stackoverflow\.com\/\w+$/
-// @grant        GM_addStyle
-// @grant        GM_getResourceText
+// @include      /^https?:\/\/stackoverflow\.com\//
 // ==/UserScript==
 
 (function() {
     'use strict';
-    $('.user-info:contains(Ciro Santilli)').remove();
+    $(function() {
+        $('.user-info:contains(Ciro Santilli)').remove();
+    });
 })();
