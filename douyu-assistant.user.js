@@ -21,7 +21,10 @@
         var time = $("span.getyw-time").text(),
             second = 1;
         if (time == "领取" && !$("div.v3-sign-wrap:visible").length) {
-            $("div.geetest_btn").click();
+            $("a.may-btn").click();
+            setTimeout(function() {
+                $("div.geetest_btn").click();
+            }, 1000);
         } else if (time == "完成") {
             return;
         } else if (time != "") {
