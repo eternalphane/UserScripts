@@ -20,8 +20,8 @@
     function getyw() {
         var time = $("span.getyw-time").text(),
             second = 1;
-        if (time == "领取" && !$("div.vcode9:visible").length) {
-            $("a.may-btn").click();
+        if (time == "领取" && !$("div.v3-sign-wrap:visible").length) {
+            $("div.geetest_btn").click();
         } else if (time == "完成") {
             return;
         } else if (time != "") {
