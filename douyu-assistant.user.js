@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         斗鱼助手
 // @namespace    https://gist.github.com/EternalPhane/
-// @version      0.3
+// @version      0.3.1
 // @description  自动领取鱼丸（需要手动输入验证码）、自动打开宝箱
 // @author       EternalPhane
 // @include      /^https?:\/\/(www|yuxiu)\.douyu\.com\/\w+$/
