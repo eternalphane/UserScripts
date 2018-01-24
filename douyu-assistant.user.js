@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         斗鱼助手
 // @namespace    https://gist.github.com/EternalPhane/
-// @version      0.3.1
+// @version      0.3.2
 // @description  自动领取鱼丸（需要手动输入验证码）、自动打开宝箱
 // @author       EternalPhane
 // @include      /^https?:\/\/(www|yuxiu)\.douyu\.com\/\w+$/
@@ -13,41 +13,46 @@
 
 (function() {
     'use strict';
-    GM_addStyle(GM_getResourceText("css"));
-    $("div#js-stats-and-actions > div:nth-child(3)").after(GM_getResourceText("html"));
+    GM_addStyle(GM_getResourceText('css'));
+    $('div#js-stats-and-actions > div:nth-child(3)').after(GM_getResourceText('html'));
     var chestId = null,
         yuwanId = null;
-    function getyw() {
-        var time = $("span.getyw-time").text(),
-            second = 1;
-        if (time == "领取" && !$("div.v3-sign-wrap:visible").length) {
-            $("a.may-btn").click();
-            setTimeout(function() {
-                $("div.geetest_btn").click();
-            }, 1000);
-        } else if (time == "完成") {
-            return;
-        } else if (time != "") {
-            time = time.split(":");
-            second = parseInt(time[0]) * 60 + parseInt(time[1]);
-        }
-        yuwanId = setTimeout(getyw, second);
-    }
-    $("input#chest-switch").change(function() {
+    $('input#chest-switch').change(function() {
         if (this.checked) {
             chestId = setInterval(function() {
-                var peck = $("div.peck-cdn");
-                if (peck.text() == "领取") {
+                var peck = $('div.peck-cdn');
+                if (peck.length && '领取' === peck.text()) {
                     peck.click();
                 }
-            }, 500);
+            }, 100);
         } else {
             clearInterval(chestId);
         }
     });
-    $("input#yuwan-switch").change(function() {
+    $('input#yuwan-switch').change(function() {
         if (this.checked) {
-            getyw();
+            (function getYuwan() {
+                var time = $('span.getyw-time').text(),
+                    ms = 1000;
+                if ('领取' === time && !$('div.v3-sign-wrap:visible').length) {
+                    $('a.may-btn').click();
+                    setTimeout(function wait() {
+                        if ($('div.geetest_wait').length) {
+                            $('div.geetest_btn').click();
+                            getYuwan();
+                        } else {
+                            setTimeout(wait, ms);
+                        }
+                    }, ms);
+                    return;
+                } else if ('完成' === time) {
+                    return;
+                } else if (time != '') {
+                    time = time.split(':');
+                    ms = parseInt(time[0]) * 60 + parseInt(time[1]) * 1000;
+                }
+                yuwanId = setTimeout(getYuwan, ms);
+            })();
         } else {
             clearTimeout(yuwanId);
         }
