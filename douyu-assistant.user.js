@@ -4,7 +4,7 @@
 // @version      0.3.2
 // @description  自动领取鱼丸（需要手动输入验证码）、自动打开宝箱
 // @author       EternalPhane
-// @include      /^https?:\/\/(www|yuxiu)\.douyu\.com\/\w+$/
+// @include      /^https?:\/\/(www|yuxiu)\.douyu\.com\/(t\/)?\w+$/
 // @resource     css https://gist.github.com/EternalPhane/e5f066bd9d4535ba56ea157dc15be084/raw/douyu-assistant.css
 // @resource     html https://gist.github.com/EternalPhane/e5f066bd9d4535ba56ea157dc15be084/raw/douyu-assistant.html
 // @grant        GM_addStyle
