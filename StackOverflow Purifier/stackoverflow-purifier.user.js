@@ -1,6 +1,5 @@
 // ==UserScript==
-// @name         StackOverflow Purifier
-// @name:zh-CN   StackOverflow净化器
+// @name         StackOverflow净化器
 // @namespace    https://github.com/EternalPhane/UserScripts/
 // @version      0.2.1
 // @description  屏蔽某个智障用户Ciro Santilli

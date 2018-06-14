@@ -1,6 +1,5 @@
 // ==UserScript==
-// @name         Douyu Assistant
-// @name:zh-CN   斗鱼助手
+// @name         斗鱼助手
 // @namespace    https://github.com/EternalPhane/UserScripts/
 // @version      0.4.1
 // @description  自动领取鱼丸（需要手动输入验证码）、自动打开宝箱
