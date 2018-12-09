@@ -1,10 +1,10 @@
 // ==UserScript==
 // @name         斗鱼助手
 // @namespace    https://github.com/EternalPhane/UserScripts/
-// @version      0.5.0
+// @version      0.5.1
 // @description  自动领取鱼丸（需要手动输入验证码）、自动打开宝箱
 // @author       EternalPhane
-// @include      /^https?:\/\/(www|yuxiu)\.douyu\.com\/(t\/)?\w+$/
+// @include      /^https?:\/\/(www|yuxiu)\.douyu\.com\/(topic\/)?\w+$/
 // @resource     css https://raw.githubusercontent.com/EternalPhane/UserScripts/master/Douyu%20Assistant/douyu-assistant.css
 // @resource     html https://raw.githubusercontent.com/EternalPhane/UserScripts/master/Douyu%20Assistant/douyu-assistant.html
 // @require      https://code.jquery.com/jquery-3.3.1.min.js
