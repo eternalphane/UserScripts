@@ -1,71 +1,89 @@
 // ==UserScript==
 // @name         斗鱼助手
 // @namespace    https://github.com/EternalPhane/UserScripts/
-// @version      0.4.1
+// @version      0.5.0
 // @description  自动领取鱼丸（需要手动输入验证码）、自动打开宝箱
 // @author       EternalPhane
 // @include      /^https?:\/\/(www|yuxiu)\.douyu\.com\/(t\/)?\w+$/
 // @resource     css https://raw.githubusercontent.com/EternalPhane/UserScripts/master/Douyu%20Assistant/douyu-assistant.css
 // @resource     html https://raw.githubusercontent.com/EternalPhane/UserScripts/master/Douyu%20Assistant/douyu-assistant.html
+// @require      https://code.jquery.com/jquery-3.3.1.min.js
 // @grant        GM_addStyle
 // @grant        GM_getResourceText
 // ==/UserScript==
 
-(() => {
+$.noConflict();
+(($) => {
     'use strict';
-    GM_addStyle(GM_getResourceText('css'));
-    $('div#js-stats-and-actions > div:nth-child(3)').after(GM_getResourceText('html'));
-    let chestId = null;
-    let yuwanId = null;
-    const getYuwan = () => {
-        const time = $('span.getyw-time').text();
-        const wait = () => {
-            if ($('div.aui_content').text()) {
-                $('button.aui_state_highlight').click();
-                $('input#yuwan-switch').click();
-            } else if ($('div.geetest_wait').length) {
-                $('div.geetest_btn')
-                    .mouseenter()
-                    .click();
-                getYuwan();
-            } else {
-                setTimeout(wait, 100);
-            }
-        };
-        switch (time) {
-            case '领取':
-                if ($('div.v3-sign-wrap:visible').length) {
-                    break;
+    const attach = () => {
+        GM_addStyle(GM_getResourceText('css'));
+        $('div.ToolbarActivityArea').after(GM_getResourceText('html'));
+        let chestId = null;
+        let yuwanId = null;
+        const getYuwan = () => {
+            const time = $('span.RewardModule-countdown').text();
+            const wait = () => {
+                if ($('div.geetest_wait').length) {
+                    $('div.geetest_btn')
+                        .mouseenter()
+                        .click();
+                    getYuwan();
+                } else {
+                    setTimeout(wait, 100);
                 }
-                $('a.may-btn')
-                    .mouseenter()
-                    .click();
-                setTimeout(wait, 100);
-                return;
-            case '完成':
-                return;
-            case '':
-                break;
-            default:
-                const [minute, second] = time.split(':');
-                const ms = (Number(minute) * 60 + Number(second)) * 1000;
-                yuwanId = setTimeout(getYuwan, ms);
-                return;
-        }
-        yuwanId = setTimeout(getYuwan, 1000);
+            };
+            switch (time) {
+                case '领 取':
+                    if ($('div.geetest_holder:visible').length) {
+                        break;
+                    }
+                    if (!$('div.RewardModal.super').length) {
+                        $('div.RewardModule-toggle')
+                            .mouseenter()
+                            .click()
+                    };
+                    $('span.RewardM-text.enable')
+                        .mouseenter()
+                        .click();
+                    setTimeout(wait, 100);
+                    return;
+                case '完 成':
+                    return;
+                case '':
+                    break;
+                default:
+                    const [minute, second] = time.split(':');
+                    const ms = (Number(minute) * 60 + Number(second)) * 1000;
+                    yuwanId = setTimeout(getYuwan, ms);
+                    return;
+            }
+            yuwanId = setTimeout(getYuwan, 1000);
+        };
+        $('input#chest-switch').change((e) => {
+            localStorage.setItem('chest', String(e.currentTarget.checked));
+            e.currentTarget.checked
+                ? (chestId = setInterval(() => {
+                    if ($('div.TreasureGee:visible').length) {
+                        return;
+                    }
+                    const treasure = $('div.Treasure.is-finish');
+                    treasure.length && '领取' === treasure.find('div.TreasureStatus.is-open').text() && treasure.mouseenter().click();
+                }, 100))
+                : clearInterval(chestId);
+        });
+        $('input#yuwan-switch').change(
+            (e) => {
+                localStorage.setItem('yuwan', String(e.currentTarget.checked));
+                e.currentTarget.checked ? getYuwan() : clearTimeout(yuwanId);
+            }
+        );
+        $('input#chest-switch').prop('checked', 'true' == localStorage.getItem('chest')).change();
+        $('input#yuwan-switch').prop('checked', 'true' == localStorage.getItem('yuwan')).change();
     };
-    $('input#chest-switch').change((e) => {
-        e.currentTarget.checked
-            ? (chestId = setInterval(() => {
-                  if ($('div.geetest_fullpage_click_box:visible').length) {
-                      return;
-                  }
-                  const peck = $('div.peck-cdn');
-                  peck.length && '领取' === peck.text() && peck.mouseenter().click();
-              }, 100))
-            : clearInterval(chestId);
-    });
-    $('input#yuwan-switch').change(
-        (e) => (e.currentTarget.checked ? getYuwan() : clearTimeout(yuwanId))
-    );
-})();
+    const wait = setInterval(() => {
+        if ($('div.ToolbarActivityArea').length) {
+            clearInterval(wait);
+            attach();
+        }
+    }, 100);
+})(jQuery);
