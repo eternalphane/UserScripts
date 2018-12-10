@@ -1,10 +1,10 @@
 // ==UserScript==
 // @name         斗鱼助手
 // @namespace    https://github.com/EternalPhane/UserScripts/
-// @version      0.5.1
+// @version      0.5.2
 // @description  自动领取鱼丸（需要手动输入验证码）、自动打开宝箱
 // @author       EternalPhane
-// @include      /^https?:\/\/(www|yuxiu)\.douyu\.com\/(topic\/)?\w+$/
+// @include      /^https?:\/\/(www|yuxiu)\.douyu\.com\/(t(opic)?\/)?\w+$/
 // @resource     css https://raw.githubusercontent.com/EternalPhane/UserScripts/master/Douyu%20Assistant/douyu-assistant.css
 // @resource     html https://raw.githubusercontent.com/EternalPhane/UserScripts/master/Douyu%20Assistant/douyu-assistant.html
 // @require      https://code.jquery.com/jquery-3.3.1.min.js
@@ -66,8 +66,27 @@ $.noConflict();
                     if ($('div.TreasureGee:visible').length) {
                         return;
                     }
-                    const treasure = $('div.Treasure.is-finish');
-                    treasure.length && '领取' === treasure.find('div.TreasureStatus.is-open').text() && treasure.mouseenter().click();
+                    const treasure = $('div.Treasure.is-finish div.TreasureStatus-text');
+                    treasure.length &&
+                        '领取' === treasure.text() &&
+                        // [not working]
+                        // treasure.mouseenter().click();
+                        //
+                        // [not working]
+                        // treasure[0].dispatchEvent(new MouseEvent("click", {
+                        //     bubbles: true,
+                        //     cancelable: true,
+                        //     composed: true,
+                        //     detail: 1,
+                        //     screenX: 1795,
+                        //     screenY: 765,
+                        //     clientX: 1796,
+                        //     clientY: 664,
+                        //     buttons: 1
+                        // }));
+                        //
+                        // isTrusted?
+                        null;
                 }, 100))
                 : clearInterval(chestId);
         });
