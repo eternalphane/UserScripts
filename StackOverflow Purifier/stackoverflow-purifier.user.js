@@ -5,6 +5,7 @@
 // @description  屏蔽某个智障用户Ciro Santilli
 // @author       EternalPhane
 // @include      /^https?:\/\/(\w+\.)?stack(overflow|exchange)\.com\//
+// @include      /^https?:\/\/(\w+\.)?askubuntu\.com\//
 // ==/UserScript==
 
 (() => {
