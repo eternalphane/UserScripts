@@ -9,6 +9,7 @@
 // @match        https://18comic.bet/photo/*
 // @match        https://18comic1.one/photo/*
 // @match        https://18comic2.one/photo/*
+// @connect      cdn-msp.18comic.vip
 // @require      https://greasemonkey.github.io/gm4-polyfill/gm4-polyfill.js
 // @require      https://unpkg.com/jszip@3.5.0/dist/jszip.min.js
 // @resource     css https://raw.githubusercontent.com/eternalphane/UserScripts/master/18comic%20Downloader/overlay.css
@@ -66,6 +67,7 @@
             updateProgress(++progress * 100 / total);
         }));
         updateProgress(0, 'Compressing...');
+        // TODO: Select output format? (cbz, cbt, pdf)
         save(
             await zip.generateAsync({
                 type: 'blob',
@@ -111,8 +113,8 @@ const download = async url => {
         }
     }
     URL.revokeObjectURL(img.src);
-    // TODO: select image type?
-    return new Promise(resolve => canvas.toBlob(resolve, 'image/webp', 1));
+    // TODO: Select image type? Change quality?
+    return new Promise(resolve => canvas.toBlob(resolve, 'image/webp', 0.9));
 };
 
 const save = (blob, filename) => {
