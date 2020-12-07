@@ -10,7 +10,7 @@
 // @match        https://18comic1.one/photo/*
 // @match        https://18comic2.one/photo/*
 // @require      https://greasemonkey.github.io/gm4-polyfill/gm4-polyfill.js
-// @require      https://raw.githubusercontent.com/Stuk/jszip/master/dist/jszip.min.js
+// @require      https://unpkg.com/jszip@3.5.0/dist/jszip.min.js
 // @resource     css https://raw.githubusercontent.com/eternalphane/UserScripts/master/18comic%20Downloader/overlay.css
 // @resource     html https://raw.githubusercontent.com/eternalphane/UserScripts/master/18comic%20Downloader/overlay.html
 // @grant        GM_getResourceText
