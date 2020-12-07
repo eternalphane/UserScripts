@@ -21,7 +21,7 @@
 // @grant        GM.xmlHttpRequest
 // ==/UserScript==
 
-(() => {
+(async () => {
     const btn = document.querySelector('.menu-bolock i.fa-download').parentElement;
     if (location.search) {
         return btn.addEventListener('click', async e => {
@@ -33,10 +33,10 @@
             );
         });
     }
-    GM.addStyle(GM.getResourceText('css'));
+    GM.addStyle(await GM.getResourceText('css'));
     const overlay = document.createElement('div');
     overlay.id = 'dl-overlay';
-    overlay.innerHTML = GM.getResourceText('html');
+    overlay.innerHTML = await GM.getResourceText('html');
     overlay.hidden = true;
     document.body.appendChild(overlay);
     const circle = overlay.querySelectorAll('circle')[1];
