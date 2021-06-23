@@ -10,6 +10,7 @@
 // @match        https://18comic1.one/photo/*
 // @match        https://18comic2.one/photo/*
 // @connect      cdn-msp.18comic.vip
+// @connect      cdn-msp.18comic.org
 // @require      https://greasemonkey.github.io/gm4-polyfill/gm4-polyfill.js
 // @require      https://unpkg.com/jszip@3.5.0/dist/jszip.min.js
 // @resource     css https://raw.githubusercontent.com/eternalphane/UserScripts/master/18comic%20Downloader/overlay.css
@@ -106,9 +107,9 @@ const download = async url => {
         const num = 10;
         const rem = h % num;
         const sh = Math.floor(h / num);
-        let sy = h - rem, dy = rem - sh;
-        ctx.drawImage(img, 0, sy, w, rem, 0, 0, w, rem);
-        for (let i = 0; i < num; ++i) {
+        let sy = h - rem - sh, dy = rem;
+        ctx.drawImage(img, 0, sy, w, rem + sh, 0, 0, w, rem + sh);
+        for (let i = 1; i < num; ++i) {
             ctx.drawImage(img, 0, sy -= sh, w, sh, 0, dy += sh, w, sh);
         }
     }
