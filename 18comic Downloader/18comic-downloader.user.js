@@ -4,6 +4,7 @@
 // @version      1.0.2
 // @description  从18comic上下载cbz格式（整话阅读）或webp格式（分页阅读）的漫画
 // @author       eternalphane
+// @licence      MIT
 // @match        https://18comic.vip/photo/*
 // @match        https://18comic.org/photo/*
 // @match        https://18comic.bet/photo/*
