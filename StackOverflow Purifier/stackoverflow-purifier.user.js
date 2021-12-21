@@ -6,6 +6,7 @@
 // @author       EternalPhane
 // @include      /^https?:\/\/(\w+\.)?stack(overflow|exchange)\.com\//
 // @include      /^https?:\/\/(\w+\.)?askubuntu\.com\//
+// @include      /^https?:\/\/(\w+\.)?serverfault\.com\//
 // ==/UserScript==
 
 (() => {
