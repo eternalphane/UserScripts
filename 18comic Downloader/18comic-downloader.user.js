@@ -101,11 +101,11 @@ const download = async url => {
     const ctx = canvas.getContext('2d');
     const w = canvas.width = img.naturalWidth;
     const h = canvas.height = img.naturalHeight;
-    // aid & scramble_id are both global variables
+    // `aid`, `scramble_id` and `md5` are both global variables
     if (!url.includes('.jpg') || aid < scramble_id) {
         ctx.drawImage(img, 0, 0);
     } else {
-        const num = 10;
+        const num = (md5(`${aid}${url.slice(url.lastIndexOf('/') + 1).split('.')[0]}`).slice(-1).charCodeAt(0) % 10 + 1) * 2;
         const rem = h % num;
         const sh = Math.floor(h / num);
         let sy = h - rem - sh, dy = rem;
