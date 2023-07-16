@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         18comic漫画下载
 // @namespace    https://github.com/eternalphane/Userscripts/
-// @version      1.1.0
+// @version      1.1.1
 // @description  从18comic上下载cbz格式（整话阅读）或webp格式（分页阅读）的漫画
 // @author       eternalphane
 // @license      MIT
@@ -246,9 +246,9 @@ class ProgressCircle extends HTMLElement {
      */
     attributeChangedCallback(name, _oldValue, newValue) {
         if ('hidden' === name) {
-            newValue ?
-                document.body.style.removeProperty('overflow') :
-                document.body.style.setProperty('overflow', 'hidden', 'important');
+            null === newValue ?
+                document.body.style.setProperty('overflow', 'hidden', 'important') :
+                document.body.style.removeProperty('overflow');
         } else {
             this[name] = newValue;
         }
